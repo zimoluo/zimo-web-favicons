@@ -1,15 +1,5 @@
 # zimo-web-favicons
 
-To install dependencies:
+A module/application that generates favicons of Zimo Web given a theme config. Builtin themes are also available as JSON files. Backdrop gradient currently not supported.
 
-```bash
-bun install
-```
-
-To run:
-
-```bash
-bun run index.ts
-```
-
-This project was created using `bun init` in bun v1.1.12. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
+Built using Bun.
