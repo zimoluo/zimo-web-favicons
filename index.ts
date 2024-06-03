@@ -3,16 +3,21 @@ import generateFavicon from "./src/generateFavicon";
 
 const themesList: string[] = [
   "about",
+  "home",
   "photos",
   "blog",
-  "projects",
-  "home",
-  "gold",
+  "bubbles",
+  "vitreous",
+  "scintillating",
+  "midnight",
+  "stars",
+  "halloween",
+  "christmas",
   "birthday",
-  "sky",
-  "oasis",
-  "storm",
+  "gold",
   "grass",
+  "sky",
+  "storm",
 ];
 
 async function generateFavicons(themes: string[]) {

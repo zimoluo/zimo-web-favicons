@@ -1,4 +1,5 @@
 import path from "path";
+import sharp from "sharp";
 
 const cellSize = 1060.54;
 const gapSize = cellSize / 2.4;
@@ -39,4 +40,13 @@ export default async function arrangeFaviconGrid(themesList: string[]) {
   await Bun.write(outputFilePath, svgContent);
 
   console.log(`Grid SVG created at ${outputFilePath}`);
+
+  const svgBuffer = Buffer.from(svgContent);
+  const pngOutputPath = path.join("./out", "grid.png");
+  await sharp(svgBuffer)
+    .resize({ width: Math.round(gridSize * (cellSize + gapSize) * 0.4) })
+    .png()
+    .toFile(pngOutputPath);
+
+  console.log(`Grid PNG created at ${pngOutputPath}`);
 }
