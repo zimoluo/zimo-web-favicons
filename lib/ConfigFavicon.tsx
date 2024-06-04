@@ -1,6 +1,3 @@
-"id random";
-"use client";
-
 import { useMemo } from "react";
 import {
   emptyFaviconStops,
