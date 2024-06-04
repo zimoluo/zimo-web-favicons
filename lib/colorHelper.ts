@@ -1,5 +1,4 @@
 import colorConvert from "color-convert";
-import type { HexColor } from "./interface";
 
 export function hexToOpacity(hex: string): number {
   const isValidHex = /^[0-9A-Fa-f]{2}$/.test(hex);

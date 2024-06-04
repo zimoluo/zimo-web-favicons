@@ -1,24 +1,7 @@
 import arrangeFaviconGrid from "./src/arrangeFaviconGrid";
 import generateFavicon from "./src/generateFavicon";
 
-const themesList: string[] = [
-  "about",
-  "home",
-  "photos",
-  "blog",
-  "bubbles",
-  "vitreous",
-  "scintillating",
-  "midnight",
-  "stars",
-  "halloween",
-  "christmas",
-  "birthday",
-  "gold",
-  "grass",
-  "sky",
-  "storm",
-];
+const themesList: string[] = ["glitter", "mori", "cubistic", "marina"];
 
 async function generateFavicons(themes: string[]) {
   for (const theme of themes) {

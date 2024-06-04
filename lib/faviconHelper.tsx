@@ -1,5 +1,4 @@
 import { type ReactNode } from "react";
-import type { FaviconGradientStop } from "./interface";
 
 export const generateStopNodes = (
   stops: FaviconGradientStop[]
@@ -23,3 +22,95 @@ export const emptyFaviconStops: FaviconGradientStop[] = [
     offset: 100,
   },
 ];
+
+export const generateBackdropGradients = (
+  gradients: ColorGradient[],
+  uniqueId: string
+): { gradientDefinitions: ReactNode[]; gradientPaths: ReactNode[] } => {
+  const gradientDefinitions = gradients
+    .map((gradient, index) => {
+      if (gradient.disabled) {
+        return null;
+      }
+
+      const stops = gradient.stops?.map((stop, stopIndex) => (
+        <stop
+          key={stopIndex}
+          offset={`${(stop.at / 100).toFixed(3)}`}
+          style={{
+            stopColor: `rgb(${stop.color[0]}, ${stop.color[1]}, ${stop.color[2]})`,
+            stopOpacity: stop.opacity,
+          }}
+        />
+      ));
+
+      switch (gradient.type) {
+        case "linear-gradient":
+          const { angle } = gradient as LinearGradientData;
+          return (
+            <linearGradient
+              key={index}
+              id={`${uniqueId}-${index}`}
+              x1={0}
+              x2={1}
+              y1={0}
+              y2={0}
+              gradientTransform={`translate(0 525) rotate(${(
+                (angle || 0) - 90
+              ).toFixed(3)} 525 0) scale(1050)`}
+              gradientUnits="userSpaceOnUse"
+            >
+              {stops}
+            </linearGradient>
+          );
+
+        case "radial-gradient":
+          const { posX, posY, sizeX, sizeY } = gradient as RadialGradientData;
+          const gradientTransform = `matrix(${((sizeX / 100) * 1016).toFixed(
+            3
+          )} 0 0 ${((sizeY / 100) * 1016).toFixed(3)} ${(
+            (posX / 100) * 1016 +
+            22.3
+          ).toFixed(3)} ${((posY / 100) * 1016 + 22.3).toFixed(3)})`;
+          return (
+            <radialGradient
+              key={index}
+              id={`${uniqueId}-${index}`}
+              gradientTransform={gradientTransform}
+              gradientUnits="userSpaceOnUse"
+              cx={0}
+              cy={0}
+              r={1}
+            >
+              {stops}
+            </radialGradient>
+          );
+
+        default:
+          return null;
+      }
+    })
+    .filter(Boolean);
+
+  const gradientPaths = gradients
+    .map((gradient, index) => {
+      if (gradient.disabled) {
+        return null;
+      }
+
+      return (
+        <path
+          key={index}
+          d="M22.2699 530.27C22.2699 249.709 249.709 22.2699 530.27 22.2699C810.831 22.2699 1038.27 249.709 1038.27 530.27C1038.27 810.831 810.831 1038.27 530.27 1038.27C249.709 1038.27 22.2699 810.831 22.2699 530.27Z"
+          fill={`url(#${uniqueId}-${index})`}
+          fillRule="nonzero"
+          opacity="1"
+          stroke="none"
+        />
+      );
+    })
+    .filter(Boolean)
+    .toReversed();
+
+  return { gradientDefinitions, gradientPaths };
+};

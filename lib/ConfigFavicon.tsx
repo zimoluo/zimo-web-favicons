@@ -1,16 +1,14 @@
 "id random";
 "use client";
 
-import { useMemo } from "react";
-import { emptyFaviconStops, generateStopNodes } from "./faviconHelper";
+import { useMemo, type ReactNode } from "react";
+import {
+  emptyFaviconStops,
+  generateBackdropGradients,
+  generateStopNodes,
+} from "./faviconHelper";
 import { rgb } from "color-convert";
 import { hashAndEncode } from "./generalHelper";
-import type {
-  AccentColors,
-  FaviconGradientStopsConfig,
-  HexColor,
-  ThemeDataConfig,
-} from "./interface";
 
 type Props = { className?: string; customThemeConfig: ThemeDataConfig };
 
@@ -23,8 +21,8 @@ export default function ConfigFavicon({
 
   const baseIds = ["a8cfb8f678d", "bfe8d6b33c2", "c1c09383770"];
   const uniqueIdSuffix = useMemo(
-    () => hashAndEncode(config),
-    [config, hashAndEncode]
+    () => hashAndEncode(adaptedThemeConfig),
+    [adaptedThemeConfig, hashAndEncode]
   );
 
   const getUniqueId = (index: number) => `${baseIds[index]}-${uniqueIdSuffix}`;
@@ -74,6 +72,17 @@ export default function ConfigFavicon({
     )}`;
   })();
 
+  const {
+    gradientDefinitions: backdropGradientDefinitions,
+    gradientPaths: backdropGradientPaths,
+  } =
+    config.mode === "backdrop"
+      ? generateBackdropGradients(
+          config.backdropGradient ?? adaptedThemeConfig.palette.page,
+          getUniqueId(0)
+        )
+      : { gradientDefinitions: [], gradientPaths: [] };
+
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -89,7 +98,7 @@ export default function ConfigFavicon({
       aria-label="The website's favicon used for display purposes"
       className={className}
     >
-      {!["backdrop", "outline", "custom"].includes(config.mode) && (
+      {!["backdrop", "outline"].includes(config.mode) && (
         <>
           <defs>
             <linearGradient
@@ -148,6 +157,12 @@ export default function ConfigFavicon({
               />
             </>
           )}
+        </>
+      )}
+      {config.mode === "backdrop" && (
+        <>
+          <defs>{backdropGradientDefinitions}</defs>
+          <g>{backdropGradientPaths}</g>
         </>
       )}
       <path
