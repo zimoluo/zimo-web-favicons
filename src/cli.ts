@@ -41,7 +41,7 @@ if (args.help) {
 }
 
 if (args.version) {
-  console.log("zimo-web-favicons version 1.0.0");
+  console.log("zimo-web-favicons version 1.0.1");
   process.exit(0);
 }
 
