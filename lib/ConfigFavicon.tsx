@@ -1,7 +1,7 @@
 "id random";
 "use client";
 
-import { useMemo, type ReactNode } from "react";
+import { useMemo } from "react";
 import {
   emptyFaviconStops,
   generateBackdropGradients,
