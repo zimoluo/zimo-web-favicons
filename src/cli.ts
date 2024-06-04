@@ -86,7 +86,7 @@ async function main() {
       if (path.extname(inputPath) === ".json") {
         const tempSvgPath = path.join(
           path.dirname(inputPath),
-          `temp_${path.basename(inputPath, ".json")}.svg`
+          `_temp_${path.basename(inputPath, ".json")}.svg`
         );
         await generateFavicon(inputPath, tempSvgPath, true);
         svgPaths.push(tempSvgPath);
