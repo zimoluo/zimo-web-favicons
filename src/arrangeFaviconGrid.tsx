@@ -12,9 +12,12 @@ export default async function arrangeFaviconGrid(themesList: string[]) {
   const gridSize = Math.ceil(Math.sqrt(themesList.length));
   const verticalGridMaximum = Math.ceil(themesList.length / gridSize);
 
-  let svgContent = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${
-    gridSize * (cellSize + gapSize) + gapSize
-  } ${verticalGridMaximum * (cellSize + gapSize) + gapSize}">\n`;
+  const backgroundWidth = gridSize * (cellSize + gapSize) + gapSize;
+  const backgroundHeight = verticalGridMaximum * (cellSize + gapSize) + gapSize;
+
+  let svgContent = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${backgroundWidth} ${backgroundHeight}">\n`;
+
+  svgContent += `<rect x="0" y="0" width="${backgroundWidth}" height="${backgroundHeight}" fill="rgb(180, 180, 180)" />`;
 
   const promises = themesList.map(async (theme, index) => {
     const svgFilePath = path.join("./out", `${theme}.svg`);
