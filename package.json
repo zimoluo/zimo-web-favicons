@@ -18,5 +18,13 @@
   "type": "module",
   "peerDependencies": {
     "typescript": "^5.0.0"
-  }
+  },
+  "bin": {
+    "zimo-web-favicons": "src/cli.ts"
+  },
+  "scripts": {
+    "start": "bun run src/cli.ts"
+  },
+  "version": "1.0.0",
+  "license": "MIT"
 }
