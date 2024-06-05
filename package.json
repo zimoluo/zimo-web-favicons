@@ -23,10 +23,10 @@
   },
   "scripts": {
     "start": "bun run src/cli.ts",
-    "build": "bun build --minify --sourcemap ./src/cli.ts --outfile ./build/zimo-web-favicons-build.js",
+    "build": "bun build --minify ./src/cli.ts --outfile ./build/zimo-web-favicons-build.js",
     "prepublish": "bun install && npm run build"
   },
-  "version": "1.0.6",
+  "version": "1.0.7",
   "license": "MIT",
   "keywords": [
     "Zimo Web",
