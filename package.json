@@ -22,7 +22,8 @@
     "zimo-web-favicons": "src/cli.ts"
   },
   "scripts": {
-    "start": "bun run src/cli.ts"
+    "start": "bun run src/cli.ts",
+    "build": "bun build --compile --minify --sourcemap ./src/cli.ts --outfile ./out/zimo-web-favicons-build"
   },
   "version": "1.0.1",
   "license": "MIT"
