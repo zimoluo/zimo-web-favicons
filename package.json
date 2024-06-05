@@ -25,6 +25,6 @@
     "start": "bun run src/cli.ts",
     "build": "bun build --compile --minify --sourcemap ./src/cli.ts --outfile ./out/zimo-web-favicons-build"
   },
-  "version": "1.0.1",
+  "version": "1.0.2",
   "license": "MIT"
 }

@@ -6,6 +6,14 @@ import path from "path";
 import arrangeFaviconGrid from "./arrangeFaviconGrid";
 import generateFavicon from "./generateFavicon";
 
+async function getVersion() {
+  const packageJson = await Bun.file(
+    path.resolve(__dirname, "../package.json")
+  ).text();
+  const packageData = JSON.parse(packageJson);
+  return packageData.version;
+}
+
 const { values: args, positionals } = parseArgs({
   args: Bun.argv.slice(2),
   options: {
@@ -23,29 +31,31 @@ const { values: args, positionals } = parseArgs({
 
 const hexColorRegex = /^#?([0-9a-fA-F]{6}|[0-9a-fA-F]{8})$/;
 
-if (args.help) {
-  console.log(`
-    Usage: zimo-web-favicons [options]
-
-    Options:
-      -g, --generate <inputPath>             Generate a single favicon
-      -a, --arrange <inputPaths...>          Arrange multiple favicons into a grid
-      -o, --output <outputPath>              Specify the output path
-      -p, --png                              Generate PNG instead of SVG (for arrange command)
-      -s, --scale <number>                   Scale factor for the PNG output
-      -b, --background <hex>                 Background color in hex format
-      -h, --help                             Show help information
-      -v, --version                          Show the current version
-  `);
-  process.exit(0);
-}
-
-if (args.version) {
-  console.log("zimo-web-favicons version 1.0.1");
-  process.exit(0);
-}
-
 async function main() {
+  if (args.help) {
+    console.log(`
+      Usage: zimo-web-favicons [options]
+  
+      Options:
+        -g, --generate <inputPath>             Generate a single favicon
+        -a, --arrange <inputPaths...>          Arrange multiple favicons into a grid
+        -o, --output <outputPath>              Specify the output path
+        -p, --png                              Generate PNG instead of SVG (for arrange command)
+        -s, --scale <number>                   Scale factor for the PNG output
+        -b, --background <hex>                 Background color in hex format
+        -h, --help                             Show help information
+        -v, --version                          Show the current version
+    `);
+    process.exit(0);
+  }
+
+  if (args.version) {
+    const version = await getVersion();
+
+    console.log(`zimo-web-favicons version ${version}`);
+    process.exit(0);
+  }
+
   if (args.generate) {
     const [inputPath] = positionals as string[];
     const outputPath = args.output;
