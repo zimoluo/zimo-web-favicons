@@ -68,4 +68,4 @@ The app can alternatively be built to an executable. Bun is required either way.
 npm run build
 ```
 
-The built executable is located in the `./out/zimo-web-favicons-build` file.
+The built executable is located in the `./build/zimo-web-favicons-build` file.
