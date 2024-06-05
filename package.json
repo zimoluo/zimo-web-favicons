@@ -25,6 +25,12 @@
     "start": "bun run src/cli.ts",
     "build": "bun build --compile --minify --sourcemap ./src/cli.ts --outfile ./out/zimo-web-favicons-build"
   },
-  "version": "1.0.2",
-  "license": "MIT"
+  "version": "1.0.3",
+  "license": "MIT",
+  "keywords": [
+    "Zimo Web",
+    "Image processing",
+    "SVG"
+  ],
+  "description": "A CLI app that generates and arranges the favicons of Zimo Web in SVG using theme JSON configs."
 }
