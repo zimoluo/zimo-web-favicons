@@ -30,7 +30,12 @@
   "keywords": [
     "Zimo Web",
     "Image processing",
-    "SVG"
+    "SVG",
+    "CLI",
+    "Command-line interface",
+    "CLI App",
+    "Application",
+    "Bun"
   ],
   "description": "A CLI app that generates and arranges the favicons of Zimo Web in SVG using theme JSON configs."
 }
