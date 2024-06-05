@@ -13,19 +13,20 @@
     "@types/react-dom": "^18.3.0"
   },
   "name": "zimo-web-favicons",
-  "module": "src/cli.ts",
+  "module": "build/zimo-web-favicons-build.js",
   "type": "module",
   "peerDependencies": {
     "typescript": "^5.0.0"
   },
   "bin": {
-    "zimo-web-favicons": "src/cli.ts"
+    "zimo-web-favicons": "build/zimo-web-favicons-build.js"
   },
   "scripts": {
     "start": "bun run src/cli.ts",
-    "build": "bun build --compile --minify --sourcemap ./src/cli.ts --outfile ./out/zimo-web-favicons-build"
+    "build": "bun build --minify --sourcemap ./src/cli.ts --outfile ./build/zimo-web-favicons-build.js",
+    "prepublish": "bun install && npm run build"
   },
-  "version": "1.0.5",
+  "version": "1.0.6",
   "license": "MIT",
   "keywords": [
     "Zimo Web",
