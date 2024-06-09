@@ -24,15 +24,18 @@ npm install -g zimo-web-favicons
 ## Usage
 
 ```sh
-zimo-web-favicons [options]
+zimo-web-favicons [command] [options]
 ```
+
+### Commands
+
+- `generate` Generate a single favicon.
+- `arrange` Arrange multiple favicons into a grid.
 
 ### Options
 
-- `-g`, `--generate` Generate a single favicon.
-- `-a`, `--arrange` Arrange multiple favicons into a grid.
-- `-o`, `--output` `<outputPath>` Specify the output path.
-- `-p`, `--png` Generate PNG instead of SVG (for arrange command).
+- `-o`, `--output` `<outputPath>` Specify the output path. Defaults to `generated_image` or `arranged_image`.
+- `-p`, `--png` Generate PNG instead of SVG (for arrange command). Defaults to `false`.
 - `-s`, `--scale` `<number>` Scale factor for the PNG output.
 - `-b`, `--background` `<hex>` Background color in hex format.
 - `-h`, `--help` Show help information.
@@ -43,17 +46,17 @@ zimo-web-favicons [options]
 - Generate a Single Favicon
 
 ```sh
-zimo-web-favicons -g input.json -o output.svg
+zimo-web-favicons generate input.json -o output.svg
 ```
 
 - Arrange Multiple Favicons into a Grid
 
 ```sh
-zimo-web-favicons -a input1.json input2.json input3.json -o output.svg
+zimo-web-favicons arrange input1.json input2.json input3.json -o output.svg
 ```
 
 - Generate PNG Output with Scale and Background Color
 
-```
-zimo-web-favicons -a input1.json input2.json -o output.png -p -s 2 -b #ff00ff88
+```sh
+zimo-web-favicons arrange input1.json input2.json -o output.png -p -s 2 -b #ff00ff88
 ```

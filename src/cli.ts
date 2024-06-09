@@ -18,8 +18,6 @@ async function getVersion(): Promise<string> {
 const { values: args, positionals } = parseArgs({
   args: process.argv.slice(2),
   options: {
-    generate: { type: "boolean", short: "g" },
-    arrange: { type: "boolean", short: "a" },
     output: { type: "string", short: "o" },
     png: { type: "boolean", short: "p" },
     scale: { type: "string", short: "s" },
@@ -33,18 +31,20 @@ const { values: args, positionals } = parseArgs({
 const hexColorRegex = /^#?([0-9a-fA-F]{6}|[0-9a-fA-F]{8})$/;
 
 const helpText = `
-      Usage: zimo-web-favicons [options]
-  
-      Options:
-        -g, --generate <inputPath>             Generate a single favicon
-        -a, --arrange <inputPaths...>          Arrange multiple favicons into a grid
-        -o, --output <outputPath>              Specify the output path
-        -p, --png                              Generate PNG instead of SVG (for arrange command)
-        -s, --scale <number>                   Scale factor for the PNG output
-        -b, --background <hex>                 Background color in hex format
-        -h, --help                             Show help information
-        -v, --version                          Show the current version
-    `;
+Usage: zimo-web-favicons <command> [options]
+
+Commands:
+  generate <inputPath>         Generate a single favicon
+  arrange <inputPaths...>      Arrange multiple favicons into a grid
+
+Options:
+  -o, --output <outputPath>    Specify the output path
+  -p, --png                    Generate PNG instead of SVG (for arrange command)
+  -s, --scale <number>         Scale factor for the PNG output
+  -b, --background <hex>       Background color in hex format (for arrange command)
+  -h, --help                   Show help information
+  -v, --version                Show the current version
+`;
 
 async function main() {
   if (args.help) {
@@ -58,19 +58,19 @@ async function main() {
     process.exit(0);
   }
 
-  if (args.generate) {
-    const [inputPath] = positionals as string[];
+  const command = positionals[0];
+
+  if (command === "generate") {
+    const [_, inputPath] = positionals;
     const outputPath = args.output;
-    if (!inputPath || !outputPath) {
-      console.error(
-        "Error: generate command requires <inputPath> and --output <outputPath>"
-      );
+    if (!inputPath) {
+      console.error("Error: generate command requires <inputPath>");
       process.exit(1);
     }
-    await generateFavicon(inputPath, outputPath);
-  } else if (args.arrange) {
-    const inputPaths = positionals as string[];
-    const outputPath = args.output;
+    await generateFavicon(inputPath, outputPath ?? "generated_image");
+  } else if (command === "arrange") {
+    const inputPaths = positionals.slice(1);
+    const outputPath = args.output ?? "arranged_image";
     const generatePng = args.png || false;
     const scale = args.scale ? parseFloat(args.scale) : 0.4;
     const background = args.background
@@ -84,10 +84,8 @@ async function main() {
       process.exit(1);
     }
 
-    if (inputPaths.length === 0 || !outputPath) {
-      console.error(
-        "Error: arrange command requires <inputPaths...> and --output <outputPath>"
-      );
+    if (inputPaths.length === 0) {
+      console.error("Error: arrange command requires <inputPaths...>");
       process.exit(1);
     }
 
