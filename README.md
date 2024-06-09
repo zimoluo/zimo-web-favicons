@@ -24,7 +24,7 @@ npm install -g zimo-web-favicons
 ## Usage
 
 ```sh
-zimo-web-favicons [command] [options]
+zimo-web-favicons <command> [options]
 ```
 
 ### Commands
