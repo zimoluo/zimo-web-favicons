@@ -18,14 +18,14 @@
     "typescript": "^5.0.0"
   },
   "bin": {
-    "zimo-web-favicons": "dist/index.js"
+    "zimo-web-favicons": "dist/cli.js"
   },
   "scripts": {
     "build": "rm -rf ./dist && node build.js",
     "start": "ts-node src/cli.ts",
     "prepublishOnly": "npm run build"
   },
-  "version": "2.0.0",
+  "version": "2.0.1",
   "license": "MIT",
   "keywords": [
     "Zimo Web",
