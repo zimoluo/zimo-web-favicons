@@ -11,7 +11,7 @@
 
 ## Requirements
 
-- [Bun](https://bun.sh) installed on your system.
+- Node and npm installed on your system.
 
 ## Installation
 
@@ -57,15 +57,3 @@ zimo-web-favicons -a input1.json input2.json input3.json -o output.svg
 ```
 zimo-web-favicons -a input1.json input2.json -o output.png -p -s 2 -b #ff00ff88
 ```
-
-## Development
-
-### Build
-
-The app can alternatively be built to an executable. Bun is required either way.
-
-```
-npm run build
-```
-
-The built executable is located in the `./build/zimo-web-favicons-build` file.

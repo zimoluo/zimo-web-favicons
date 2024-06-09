@@ -23,7 +23,7 @@ export const emptyFaviconStops: FaviconGradientStop[] = [
   },
 ];
 
-export const generateBackdropGradients = (
+export const generateTranslatedBackdropGradients = (
   gradients: ColorGradient[],
   uniqueId: string
 ): { gradientDefinitions: ReactNode[]; gradientPaths: ReactNode[] } => {
@@ -55,9 +55,9 @@ export const generateBackdropGradients = (
               x2={1}
               y1={0}
               y2={0}
-              gradientTransform={`translate(0 525) rotate(${(
+              gradientTransform={generateBackdropLinearTransform(
                 (angle || 0) - 90
-              ).toFixed(3)} 525 0) scale(1050)`}
+              )}
               gradientUnits="userSpaceOnUse"
             >
               {stops}
@@ -109,8 +109,28 @@ export const generateBackdropGradients = (
         />
       );
     })
-    .filter(Boolean)
-    .toReversed();
+    .filter(Boolean);
+
+  gradientPaths.reverse();
 
   return { gradientDefinitions, gradientPaths };
+};
+
+const generateBackdropLinearTransform = (angle: number) => {
+  const canvasSize = 1060.54;
+  const baseScale = 995;
+
+  const radians = angle * (Math.PI / 180);
+
+  const maxDimension =
+    Math.abs(Math.cos(radians) * baseScale) +
+    Math.abs(Math.sin(radians) * baseScale);
+
+  const transform = `translate(${((canvasSize - maxDimension) / 2).toFixed(
+    3
+  )} ${(canvasSize / 2).toFixed(3)}) rotate(${angle.toFixed(3)} ${(
+    maxDimension / 2
+  ).toFixed(3)} 0) scale(${maxDimension.toFixed(3)})`;
+
+  return transform;
 };

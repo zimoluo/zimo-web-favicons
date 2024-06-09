@@ -1,8 +1,8 @@
 import { useMemo } from "react";
 import {
   emptyFaviconStops,
-  generateBackdropGradients,
   generateStopNodes,
+  generateTranslatedBackdropGradients,
 } from "./faviconHelper";
 import { rgb } from "color-convert";
 import { hashAndEncode } from "./generalHelper";
@@ -74,7 +74,7 @@ export default function ConfigFavicon({
     gradientPaths: backdropGradientPaths,
   } =
     config.mode === "backdrop"
-      ? generateBackdropGradients(
+      ? generateTranslatedBackdropGradients(
           config.backdropGradient ?? adaptedThemeConfig.palette.page,
           getUniqueId(0)
         )

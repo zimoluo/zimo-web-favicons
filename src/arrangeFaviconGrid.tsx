@@ -1,5 +1,6 @@
 import path from "path";
 import sharp from "sharp";
+import fs from "fs/promises";
 
 const cellSize = 1060.54;
 const gapSize = cellSize / 2.4;
@@ -26,11 +27,13 @@ export default async function arrangeFaviconGrid(
   svgContent += `<rect x="0" y="0" width="${backgroundWidth}" height="${backgroundHeight}" fill="${backgroundColor}" />`;
 
   const promises = svgPaths.map(async (svgFilePath, index) => {
-    if (!(await Bun.file(svgFilePath).exists())) {
+    try {
+      await fs.access(svgFilePath);
+    } catch {
       return "";
     }
 
-    const svgData = await Bun.file(svgFilePath).text();
+    const svgData = await fs.readFile(svgFilePath, "utf8");
 
     const x = gapSize + (index % gridSize) * (cellSize + gapSize);
     const y = gapSize + Math.floor(index / gridSize) * (cellSize + gapSize);
@@ -50,7 +53,7 @@ export default async function arrangeFaviconGrid(
     : `${output}.${generatePng ? "png" : "svg"}`;
 
   if (!generatePng) {
-    await Bun.write(outputPath, svgContent);
+    await fs.writeFile(outputPath, svgContent, "utf8");
     console.log(`Grid SVG created at ${outputPath}`);
     return;
   }

@@ -1,4 +1,4 @@
-#!/usr/bin/env bun
+#!/usr/bin/env ts-node
 
 import { parseArgs } from "util";
 import { promises as fs } from "fs";
@@ -6,16 +6,17 @@ import path from "path";
 import arrangeFaviconGrid from "./arrangeFaviconGrid";
 import generateFavicon from "./generateFavicon";
 
-async function getVersion() {
-  const packageJson = await Bun.file(
-    path.resolve(__dirname, "../package.json")
-  ).text();
+async function getVersion(): Promise<string> {
+  const packageJson = await fs.readFile(
+    path.resolve(__dirname, "../package.json"),
+    "utf8"
+  );
   const packageData = JSON.parse(packageJson);
   return packageData.version;
 }
 
 const { values: args, positionals } = parseArgs({
-  args: Bun.argv.slice(2),
+  args: process.argv.slice(2),
   options: {
     generate: { type: "boolean", short: "g" },
     arrange: { type: "boolean", short: "a" },
@@ -51,7 +52,6 @@ async function main() {
 
   if (args.version) {
     const version = await getVersion();
-
     console.log(`zimo-web-favicons version ${version}`);
     process.exit(0);
   }
@@ -67,17 +67,15 @@ async function main() {
     }
     await generateFavicon(inputPath, outputPath);
   } else if (args.arrange) {
-    const inputPaths = positionals;
+    const inputPaths = positionals as string[];
     const outputPath = args.output;
-    const generatePng = args.png;
-    const scale =
-      typeof args.scale === "undefined" ? undefined : parseFloat(args.scale);
-    const background =
-      typeof args.background === "undefined"
-        ? undefined
-        : args.background.startsWith("#")
+    const generatePng = args.png || false;
+    const scale = args.scale ? parseFloat(args.scale) : 0.4;
+    const background = args.background
+      ? args.background.startsWith("#")
         ? args.background
-        : `#${args.background}`;
+        : `#${args.background}`
+      : "#b4b4b4";
 
     if (background && !hexColorRegex.test(background)) {
       console.error("Error: Invalid hex color format");
@@ -91,7 +89,7 @@ async function main() {
       process.exit(1);
     }
 
-    const svgPaths = [];
+    const svgPaths: string[] = [];
     for (const inputPath of inputPaths) {
       if (path.extname(inputPath) === ".json") {
         const tempSvgPath = path.join(
@@ -117,7 +115,6 @@ async function main() {
       console.error("Error arranging the favicon grid:", e);
     } finally {
       const uniqueSvgPaths = [...new Set(svgPaths)];
-
       for (const svgPath of uniqueSvgPaths) {
         if (path.extname(svgPath) === ".svg" && !inputPaths.includes(svgPath)) {
           await fs.unlink(svgPath);

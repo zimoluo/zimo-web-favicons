@@ -6,26 +6,26 @@
     "sharp": "^0.33.4"
   },
   "devDependencies": {
-    "@types/bun": "latest",
     "@types/color-convert": "^2.0.3",
     "@types/node": "^20.14.0",
     "@types/react": "^18.3.3",
-    "@types/react-dom": "^18.3.0"
+    "@types/react-dom": "^18.3.0",
+    "esbuild": "^0.21.4",
+    "ts-node": "^10.9.2"
   },
   "name": "zimo-web-favicons",
-  "module": "src/cli.ts",
-  "type": "module",
   "peerDependencies": {
     "typescript": "^5.0.0"
   },
   "bin": {
-    "zimo-web-favicons": "src/cli.ts"
+    "zimo-web-favicons": "dist/index.js"
   },
   "scripts": {
-    "start": "bun run src/cli.ts",
-    "build": "bun build --compile --minify --sourcemap ./src/cli.ts --outfile ./build/zimo-web-favicons-build"
+    "build": "rm -rf ./dist && node build.js",
+    "start": "ts-node src/cli.ts",
+    "prepublishOnly": "npm run build"
   },
-  "version": "1.0.8",
+  "version": "2.0.0",
   "license": "MIT",
   "keywords": [
     "Zimo Web",
@@ -35,7 +35,7 @@
     "Command-line interface",
     "CLI App",
     "Application",
-    "Bun"
+    "Node"
   ],
-  "description": "A CLI app that generates and arranges the favicons of Zimo Web in SVG using theme JSON configs."
+  "description": "A node CLI app that generates and arranges the favicons of Zimo Web in SVG using theme JSON configs."
 }
