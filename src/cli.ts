@@ -32,9 +32,7 @@ const { values: args, positionals } = parseArgs({
 
 const hexColorRegex = /^#?([0-9a-fA-F]{6}|[0-9a-fA-F]{8})$/;
 
-async function main() {
-  if (args.help) {
-    console.log(`
+const helpText = `
       Usage: zimo-web-favicons [options]
   
       Options:
@@ -46,7 +44,11 @@ async function main() {
         -b, --background <hex>                 Background color in hex format
         -h, --help                             Show help information
         -v, --version                          Show the current version
-    `);
+    `;
+
+async function main() {
+  if (args.help) {
+    console.log(helpText);
     process.exit(0);
   }
 
@@ -122,8 +124,8 @@ async function main() {
       }
     }
   } else {
-    console.error("Error: No valid command provided");
-    process.exit(1);
+    console.log(helpText);
+    process.exit(0);
   }
 }
 

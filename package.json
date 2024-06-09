@@ -21,11 +21,11 @@
     "zimo-web-favicons": "dist/cli.js"
   },
   "scripts": {
-    "build": "rm -rf ./dist && node build.js",
+    "build": "rm -rf dist && node build.js",
     "start": "ts-node src/cli.ts",
     "prepublishOnly": "npm run build"
   },
-  "version": "2.0.2",
+  "version": "2.0.3",
   "license": "MIT",
   "keywords": [
     "Zimo Web",
