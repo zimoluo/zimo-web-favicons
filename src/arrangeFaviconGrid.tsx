@@ -22,9 +22,13 @@ export default async function arrangeFaviconGrid(
   const backgroundWidth = gridSize * (cellSize + gapSize) + gapSize;
   const backgroundHeight = verticalGridMaximum * (cellSize + gapSize) + gapSize;
 
-  let svgContent = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${backgroundWidth} ${backgroundHeight}">\n`;
+  let svgContent = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${backgroundWidth.toFixed(
+    3
+  )} ${backgroundHeight.toFixed(3)}">\n`;
 
-  svgContent += `<rect x="0" y="0" width="${backgroundWidth}" height="${backgroundHeight}" fill="${backgroundColor}" />`;
+  svgContent += `<rect x="0" y="0" width="${backgroundWidth.toFixed(
+    3
+  )}" height="${backgroundHeight.toFixed(3)}" fill="${backgroundColor}" />`;
 
   const promises = svgPaths.map(async (svgFilePath, index) => {
     try {
@@ -37,9 +41,9 @@ export default async function arrangeFaviconGrid(
 
     const x = gapSize + (index % gridSize) * (cellSize + gapSize);
     const y = gapSize + Math.floor(index / gridSize) * (cellSize + gapSize);
-    return `<g transform="translate(${x}, ${y})">\n${stripSVGTag(
-      svgData
-    )}\n</g>\n`;
+    return `<g transform="translate(${x.toFixed(3)}, ${y.toFixed(
+      3
+    )})">\n${stripSVGTag(svgData)}\n</g>\n`;
   });
 
   const results = await Promise.all(promises);

@@ -72,12 +72,13 @@ async function main() {
     const inputPaths = positionals.slice(1);
     const outputPath = args.output ?? "arranged_image";
     const generatePng = args.png || false;
-    const scale = args.scale ? parseFloat(args.scale) : 0.4;
+    const scale = args.scale ? parseFloat(args.scale) : undefined;
     const background = args.background
-      ? args.background.startsWith("#")
-        ? args.background
-        : `#${args.background}`
-      : "#b4b4b4";
+      ? (args.background.startsWith("#")
+          ? args.background
+          : `#${args.background}`
+        ).toLowerCase()
+      : undefined;
 
     if (background && !hexColorRegex.test(background)) {
       console.error("Error: Invalid hex color format");
