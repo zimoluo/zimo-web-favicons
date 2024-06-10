@@ -39,7 +39,7 @@ Commands:
 
 Options:
   -o, --output <outputPath>    Specify the output path
-  -p, --png                    Generate PNG instead of SVG (for arrange command)
+  -p, --png                    Generate PNG instead of SVG
   -s, --scale <number>         Scale factor for the PNG output
   -b, --background <hex>       Background color in hex format (for arrange command)
   -h, --help                   Show help information
@@ -67,7 +67,15 @@ async function main() {
       console.error("Error: generate command requires <inputPath>");
       process.exit(1);
     }
-    await generateFavicon(inputPath, outputPath ?? "generated_image");
+    const generatePng = args.png || false;
+    const scale = args.scale ? parseFloat(args.scale) : undefined;
+    await generateFavicon(
+      inputPath,
+      outputPath ?? "generated_image",
+      false,
+      generatePng,
+      scale
+    );
   } else if (command === "arrange") {
     const inputPaths = positionals.slice(1);
     const outputPath = args.output ?? "arranged_image";

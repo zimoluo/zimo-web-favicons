@@ -35,7 +35,7 @@ zimo-web-favicons <command> [options]
 ### Options
 
 - `-o`, `--output` `<outputPath>` Specify the output path. Defaults to `generated_image` or `arranged_image`.
-- `-p`, `--png` Generate PNG instead of SVG (for arrange command). Defaults to `false`.
+- `-p`, `--png` Generate PNG instead of SVG. Defaults to `false`.
 - `-s`, `--scale` `<number>` Scale factor for the PNG output.
 - `-b`, `--background` `<hex>` Background color in hex format.
 - `-h`, `--help` Show help information.
