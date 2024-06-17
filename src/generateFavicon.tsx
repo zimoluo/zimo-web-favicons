@@ -3,13 +3,15 @@ import ConfigFavicon from "../lib/ConfigFavicon";
 import path from "path";
 import fs from "fs/promises";
 import sharp from "sharp";
+import optimizeSvg from "./optimizeSVG";
 
 export default async function generateFavicon(
   input: string,
   output: string,
   silent: boolean = false,
   generatePng: boolean = false,
-  scale: number = 1.2
+  scale: number = 1.2,
+  optimize: boolean = true
 ) {
   try {
     const configFile = await fs.readFile(input, "utf8");
@@ -25,8 +27,13 @@ export default async function generateFavicon(
 
     if (!generatePng) {
       await fs.writeFile(outputPath, svgString);
+
+      if (optimize) {
+        optimizeSvg(outputPath);
+      }
+
       if (!silent) {
-        console.log(`Favicon generated and saved to ${outputPath}`);
+        console.log(`Favicon SVG generated and saved to ${outputPath}`);
       }
       return;
     }

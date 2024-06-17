@@ -105,7 +105,14 @@ async function main() {
           path.dirname(inputPath),
           `_temp_${path.basename(inputPath, ".json")}.svg`
         );
-        await generateFavicon(inputPath, tempSvgPath, true);
+        await generateFavicon(
+          inputPath,
+          tempSvgPath,
+          true,
+          undefined,
+          undefined,
+          false
+        );
         svgPaths.push(tempSvgPath);
       } else {
         svgPaths.push(inputPath);

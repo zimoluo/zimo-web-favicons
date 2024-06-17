@@ -1,6 +1,7 @@
 import path from "path";
 import sharp from "sharp";
 import fs from "fs/promises";
+import optimizeSvg from "./optimizeSVG";
 
 const cellSize = 1060.54;
 const gapSize = cellSize / 2.4;
@@ -58,6 +59,7 @@ export default async function arrangeFaviconGrid(
 
   if (!generatePng) {
     await fs.writeFile(outputPath, svgContent, "utf8");
+    optimizeSvg(outputPath);
     console.log(`Grid SVG created at ${outputPath}`);
     return;
   }
