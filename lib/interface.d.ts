@@ -18,12 +18,22 @@ interface LinearGradientData {
   angle: number; // [0, 359]
 }
 
+interface LinearGradientOrientationData {
+  linearGradientKeyword?: boolean;
+  linearHorizontalOrientation?: LinearGradientHorizontal;
+  linearVerticalOrientation?: LinearGradientVertical;
+}
+
 interface RadialGradientData {
   posX: number; // in percentage
   posY: number;
   sizeX: number;
   sizeY: number;
 }
+
+type LinearGradientHorizontal = "left" | "right";
+
+type LinearGradientVertical = "top" | "bottom";
 
 interface GradientStop {
   color: ColorTriplet;
