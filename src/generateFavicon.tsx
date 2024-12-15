@@ -40,7 +40,7 @@ export default async function generateFavicon(
 
     const svgBuffer = Buffer.from(svgString);
     await sharp(svgBuffer)
-      .resize({ width: Math.round(1060.54 * scale) })
+      .resize({ width: Math.round(1024 * scale) })
       .png()
       .toFile(outputPath);
 

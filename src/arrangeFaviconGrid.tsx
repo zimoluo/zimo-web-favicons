@@ -3,7 +3,7 @@ import sharp from "sharp";
 import fs from "fs/promises";
 import optimizeSvg from "./optimizeSVG";
 
-const cellSize = 1060.54;
+const cellSize = 1024;
 const gapSize = cellSize / 2.4;
 
 function stripSVGTag(svgContent: string): string {
