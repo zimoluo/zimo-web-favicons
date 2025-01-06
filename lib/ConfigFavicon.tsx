@@ -71,7 +71,6 @@ export default function ConfigFavicon({
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 1024 1024"
-      aria-label="The website's favicon used for display purposes"
       className={className}
     >
       {!["backdrop", "outline"].includes(config.mode) && (
