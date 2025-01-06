@@ -1,6 +1,4 @@
 import { ReactNode } from "react";
-import { hexToRgba } from "./colorHelper";
-import { rgb } from "color-convert";
 
 const BACKDROP_CANVAS_SIZE = 1024;
 const BACKDROP_BASE_SCALE = 940;
@@ -27,9 +25,10 @@ export const getHexOutlineColor = (themeConfig: ThemeDataConfig): HexColor => {
     return themeConfig.siteThemeColor;
   }
 
-  return `#${rgb.hex(
-    themeConfig.palette[outlineConfig as Exclude<AccentColors, "site">]
-  )}`;
+  return `#${themeConfig.palette[outlineConfig as Exclude<AccentColors, "site">]
+    .map((value) => value.toString(16).padStart(2, "0"))
+    .join("")
+    .toLowerCase()}`;
 };
 
 export const emptyFaviconStops: FaviconGradientStop[] = [

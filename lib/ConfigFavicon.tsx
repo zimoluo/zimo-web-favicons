@@ -5,7 +5,6 @@ import {
   generateTranslatedBackdropGradients,
   getHexOutlineColor,
 } from "./faviconHelper";
-import { rgb } from "color-convert";
 import { hashAndEncode } from "./generalHelper";
 
 type Props = { className?: string; customThemeConfig: ThemeDataConfig };
@@ -71,7 +70,6 @@ export default function ConfigFavicon({
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      fill="none"
       viewBox="0 0 1024 1024"
       aria-label="The website's favicon used for display purposes"
       className={className}
